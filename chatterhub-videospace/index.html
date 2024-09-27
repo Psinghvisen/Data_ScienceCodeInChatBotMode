@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>chatterhub-videospace</title>
+    <meta name="description" content="GPT Engineer Generated Project" />
+    <meta name="author" content="GPT Engineer" />
+    <meta property="og:image" content="/og-image.svg" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <input type="text" id="roomIdInput" placeholder="Enter Room ID" />
+    <button id="joinRoomButton">Join Room</button>
+    
+
+    <script type="module">
+        import socket from './src/socket.js'; // Adjust the path as necessary
+
+        // Log when connected
+        // socket.on('connect', () => {
+        //     console.log('index.html: Connected to server:', socket.id);
+        // });
+
+        document.getElementById('joinRoomButton').addEventListener('click', () => {
+            const roomId = document.getElementById('roomIdInput').value;
+            console.log('Emitting join-room with ID:', roomId);
+            socket.emit('join-room', roomId); // Emit the join-room event
+        });
+
+        // Catch-all listener for any incoming events
+        socket.onAny((event, ...args) => {
+            console.log(`Received event: ${event}`, args);
+        });
+    </script>
+
+    <script type="module" src="/src/main.jsx" defer></script>
+  </body>
+</html>
